@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cafetería de Especialidad - HTML Plano</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    #bebida { margin-top: 20px; border: 1px solid #ccc; padding: 15px; width: 340px; }
+    #cafeteria_listaBebidas { margin: 10px 0; }
+    #resumen { margin-top: 15px; border: 1px solid #aaa; padding: 10px; background: #f9f9f9; }
+    label { display: block; margin: 6px 0 2px; }
+    input[type="text"], input[type="number"], select { width: 100%; padding: 4px; box-sizing: border-box; }
+    .check-row { display: flex; align-items: center; gap: 8px; margin: 6px 0; }
+    button { margin: 4px 2px; padding: 6px 14px; cursor: pointer; }
+  </style>
+</head>
+
+<body>
+  <section id="cafeteria">
+    <h2>Cafetería de Especialidad (HTML Plano)</h2>
+    <button id="cafeteria_btNuevaBebida">Nueva Bebida</button>
+    <hr>
+
+    <div id="cafeteria_listaBebidas"></div>
+
+    <div id="resumen">
+      <strong>Resumen de la Cafetería</strong><br>
+      Monto total de ventas: <span id="cafeteria_lblMontoTotalVenta">$0.00</span><br>
+      Bebidas con precio mayor a $4: <span id="cafeteria_lblCantidadBebidaPrecioMayor4">0</span>
+    </div>
+  </section>
+
+  <section id="bebida" hidden>
+    <h5>Registrar Bebida</h5>
+
+    <label>Nombre:
+      <input type="text" id="bebida_inNombre" placeholder="Ej: Latte">
+    </label>
+
+    <label>Precio base ($):
+      <input type="number" id="bebida_inPrecioBase" placeholder="Ej: 3.00" min="0" step="0.01">
+    </label>
+
+    <label>Tipo:
+      <select id="bebida_selTipo">
+        <option value="caliente">Caliente</option>
+        <option value="fria">Fría</option>
+      </select>
+    </label>
+
+    <div class="check-row" id="bebida_rowLecheVegetal">
+      <input type="checkbox" id="bebida_chkLecheVegetal">
+      <label for="bebida_chkLecheVegetal" style="display:inline; margin:0;">Leche vegetal (recargo $0.75)</label>
+    </div>
+
+    <div class="check-row" id="bebida_rowGrande" hidden>
+      <input type="checkbox" id="bebida_chkGrande">
+      <label for="bebida_chkGrande" style="display:inline; margin:0;">Tamaño grande (recargo 20%)</label>
+    </div>
+
+    <br>
+    <button id="bebida_btCancelar">Cancelar</button>
+    <button id="bebida_btAceptar">Registrar</button>
+  </section>
+
+  <script type="module">
+    import cCafeteria from "./dist/controllers/cCafeteria.js";
+    import cBebida from "./dist/controllers/cBebida.js";
+
+    import vCafeteriaPlain from "./dist/views/vCafeteriaPlain.js";
+    import vBebidaPlain from "./dist/views/vBebidaPlain.js";
+
+    const vistaCafeteria = new vCafeteriaPlain();
+    const vistaBebida = new vBebidaPlain();
+    const controladorBebida = new cBebida(vistaBebida);
+    new cCafeteria(vistaCafeteria, controladorBebida);
+  </script>
+</body>
+
+</html>

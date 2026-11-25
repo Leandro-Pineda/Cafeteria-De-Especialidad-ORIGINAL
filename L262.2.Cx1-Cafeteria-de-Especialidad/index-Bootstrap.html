@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cafetería de Especialidad - Bootstrap</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="app-bootstrap" class="container mt-5">
+    <h2 class="mb-4">Cafetería de Especialidad</h2>
+    <button type="button" class="btn btn-primary mb-3" id="cafeteria_btNuevaBebida">Nueva Bebida</button>
+    <hr>
+
+    <table class="table table-striped table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>Nombre</th>
+          <th>Tipo</th>
+          <th class="text-end">Monto total</th>
+        </tr>
+      </thead>
+      <tbody id="cafeteria_tbBebidas"></tbody>
+    </table>
+
+    <div class="card mt-3">
+      <div class="card-header fw-bold">Resumen de la Cafetería</div>
+      <div class="card-body">
+        <p class="mb-1">Monto total de ventas:
+          <span id="cafeteria_lblMontoTotalVenta" class="fw-bold text-success">$0.00</span>
+        </p>
+        <p class="mb-0">Bebidas con precio mayor a $4:
+          <span id="cafeteria_lblCantidadBebidaPrecioMayor4" class="fw-bold text-info">0</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="bebida" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Registrar Bebida</h5>
+        </div>
+        <div class="modal-body">
+          <div class="mb-2">
+            <label class="form-label" for="bebida_inNombre">Nombre:</label>
+            <input type="text" class="form-control" id="bebida_inNombre" placeholder="Ej: Latte">
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label" for="bebida_inPrecioBase">Precio base ($):</label>
+            <input type="number" class="form-control" id="bebida_inPrecioBase" placeholder="Ej: 3.00" min="0" step="0.01">
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label" for="bebida_selTipo">Tipo:</label>
+            <select class="form-select" id="bebida_selTipo">
+              <option value="caliente">Caliente</option>
+              <option value="fria">Fría</option>
+            </select>
+          </div>
+
+          <div class="mb-2" id="bebida_rowLecheVegetal">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="bebida_chkLecheVegetal">
+              <label class="form-check-label" for="bebida_chkLecheVegetal">
+                Leche vegetal (recargo $0.75)
+              </label>
+            </div>
+          </div>
+
+          <div class="mb-2" id="bebida_rowGrande" hidden>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="bebida_chkGrande">
+              <label class="form-check-label" for="bebida_chkGrande">
+                Tamaño grande (recargo 20%)
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="bebida_btCancelar">Cancelar</button>
+          <button type="button" class="btn btn-success" id="bebida_btAceptar">Registrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module">
+    import cCafeteria from "./dist/controllers/cCafeteria.js";
+    import cBebida from "./dist/controllers/cBebida.js";
+
+    import vCafeteriaBootstrap from "./dist/views/vCafeteriaBootstrap.js";
+    import vBebidaBootstrap from "./dist/views/vBebidaBootstrap.js";
+
+    const vistaCafeteria = new vCafeteriaBootstrap();
+    const vistaBebida = new vBebidaBootstrap();
+    const controladorBebida = new cBebida(vistaBebida);
+    new cCafeteria(vistaCafeteria, controladorBebida);
+  </script>
+</body>
+
+</html>
